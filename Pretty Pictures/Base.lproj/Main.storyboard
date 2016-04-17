@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lsK-Hf-xJJ">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Mandelbrot-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController title="Mandelbrot" id="BYZ-38-t0r" customClass="MandelbrotViewController" customModule="Pretty_Pictures" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Mandelbrot" id="02T-cQ-hBp"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1050" y="-301"/>
+        </scene>
+        <!--Ship-->
+        <scene sceneID="cTI-Rx-0UU">
+            <objects>
+                <viewController title="Ship" id="UXM-G5-pRf" customClass="JuliaViewController" customModule="Pretty_Pictures" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="V1t-Eu-XUb"/>
+                        <viewControllerLayoutGuide type="bottom" id="QEB-ZV-cdi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Q2a-Xw-rB6">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Ship" id="bpi-8H-7D6"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iWU-Et-DSm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1055" y="1346"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="f6j-7i-Idf">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="lsK-Hf-xJJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="uNF-bK-vsl">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="ajy-ne-hpE"/>
+                        <segue destination="gQ4-4D-5qc" kind="relationship" relationship="viewControllers" id="VZ0-AJ-g9x"/>
+                        <segue destination="UXM-G5-pRf" kind="relationship" relationship="viewControllers" id="YgX-6B-UoO"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nxp-e4-XSL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-346" y="350"/>
+        </scene>
+        <!--Julia-->
+        <scene sceneID="FM4-BB-Wwf">
+            <objects>
+                <viewController title="Julia" id="gQ4-4D-5qc" customClass="ShipViewController" customModule="Pretty_Pictures" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5MV-YC-GY9"/>
+                        <viewControllerLayoutGuide type="bottom" id="sRu-QV-d9S"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="a50-I2-mlQ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Julia" id="C4y-bb-d9R"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fjD-oK-wHx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1063" y="434"/>
+        </scene>
+    </scenes>
+</document>
