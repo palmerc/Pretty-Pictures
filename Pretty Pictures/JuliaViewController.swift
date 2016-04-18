@@ -18,30 +18,30 @@ class JuliaViewController: UIViewController
 
         let stepSize = self.startRect.width / Double(screenWidth)
 
-        let jc = JuliaCalculator()
-        let states = jc.pointsForComplexRect(visibleComplexRect, coordinate: defaultCoordinate, stepSize: stepSize, maximumIterations: 1024)
-        var tile = ContinuousColorTile(states: states, maximumIterations: 1024, width:Int(screenWidth), height: Int(screenHeight))
-        var pixels = [UInt8]()
-        if let intensities = tile.colorLookup {
-            for y in 0 ..< Int(screenHeight) {
-                for x in 0 ..< Int(screenWidth) {
-                    let index = y * Int(screenWidth) + x
-                    let intensity = intensities[index]
-                    var red: CGFloat = 0.0
-                    var green: CGFloat = 0.0
-                    var blue: CGFloat = 0.0
-                    var alpha: CGFloat = 0.0
-
-                    intensity.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-                    let gray = red * 255 * 0.2126 + green * 255 * 0.7152 + blue * 255 * 0.0722
-
-                    pixels.append(UInt8(gray))
-                }
-            }
-            let image = self.imageFromPixelValues(pixels, width: Int(screenWidth), height: Int(screenHeight))
-            let im = UIImage(CGImage: image!, scale: scaleFactor, orientation: .Up)
-            print("\(im)")
-        }
+//        let jc = JuliaCalculator()
+//        let states = jc.pointsForComplexRect(visibleComplexRect, coordinate: defaultCoordinate, stepSize: stepSize, maximumIterations: 1024)
+//        var tile = ContinuousColorTile(states: states, maximumIterations: 1024, width:Int(screenWidth), height: Int(screenHeight))
+//        var pixels = [UInt8]()
+//        if let intensities = tile.colorLookup {
+//            for y in 0 ..< Int(screenHeight) {
+//                for x in 0 ..< Int(screenWidth) {
+//                    let index = y * Int(screenWidth) + x
+//                    let intensity = intensities[index]
+//                    var red: CGFloat = 0.0
+//                    var green: CGFloat = 0.0
+//                    var blue: CGFloat = 0.0
+//                    var alpha: CGFloat = 0.0
+//
+//                    intensity.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+//                    let gray = red * 255 * 0.2126 + green * 255 * 0.7152 + blue * 255 * 0.0722
+//
+//                    pixels.append(UInt8(gray))
+//                }
+//            }
+//            let image = self.imageFromPixelValues(pixels, width: Int(screenWidth), height: Int(screenHeight))
+//            let im = UIImage(CGImage: image!, scale: scaleFactor, orientation: .Up)
+//            print("\(im)")
+//        }
     }
 
     override func didReceiveMemoryWarning() {

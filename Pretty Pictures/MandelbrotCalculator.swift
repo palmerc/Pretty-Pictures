@@ -4,34 +4,29 @@ import UIKit
 public struct FractalState
 {
     var iterations: Int
+    var maximumIterations: Int
     var z: Complex<Double>
     var c: Complex<Double>
+    var degree: Int
 }
 
 
 
 public class MandelbrotCalculator
 {
-    public func pointsForComplexRect(complexRect: ComplexRect<Double>, stepSize: Double, maximumIterations: Int, degree: Int = 2) -> [FractalState]
+    public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]], maximumIterations: Int, degree: Int = 2) -> [[FractalState]]
     {
-        let topLeft = complexRect.topLeft
-        let realSteps = Int(floor(complexRect.width / stepSize))
-        let imaginarySteps = Int(floor(complexRect.height / stepSize))
-
-        var states = [FractalState]()
-        var escapeTimes = [Int]()
-        for imaginaryStep in 0 ..< imaginarySteps {
-            let imaginary = topLeft.im - stepSize * Double(imaginaryStep)
-            for realStep in 0 ..< realSteps {
-                let real = topLeft.re + stepSize * Double(realStep)
-                var mandelbrotState = FractalState(iterations: 0, z: Complex(real, imaginary), c: Complex(real, imaginary))
-                computeFractalStateForPoint(&mandelbrotState, maximumIterations: maximumIterations, degree: degree)
-                states.append(mandelbrotState)
-                escapeTimes.append(mandelbrotState.iterations)
-            }
+        let fractalStates = complexGrid.map {
+            (complexVector: [Complex<Double>]) -> [FractalState] in
+            complexVector.map({
+                (complexPoint: Complex<Double>) -> FractalState in
+                var fractalState = FractalState(iterations: 0, maximumIterations: maximumIterations, z: complexPoint, c: complexPoint, degree: degree)
+                computeFractalStateForPoint(&fractalState, maximumIterations: maximumIterations, degree: degree)
+                return fractalState
+            })
         }
 
-        return states
+        return fractalStates
     }
 
     private func computeFractalStateForPoint(inout mandelbrotState: FractalState, maximumIterations: Int, degree: Int = 2)

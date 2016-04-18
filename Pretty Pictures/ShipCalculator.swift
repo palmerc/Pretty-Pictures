@@ -16,7 +16,7 @@ public class ShipCalculator
             let imaginary = topLeft.im - stepSize * Double(imaginaryStep)
             for realStep in 0 ..< realSteps {
                 let real = topLeft.re + stepSize * Double(realStep)
-                var shipSate = FractalState(iterations: 0, z: Complex(0, 0), c: Complex(real, imaginary))
+                var shipSate = FractalState(iterations: 0, maximumIterations: maximumIterations, z: Complex(0, 0), c: Complex(real, imaginary), degree: degree)
                 computeFractalStateForPoint(&shipSate, maximumIterations: maximumIterations, degree: degree)
                 states.append(shipSate)
             }

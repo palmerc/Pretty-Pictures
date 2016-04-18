@@ -42,6 +42,24 @@ public func ==<T: ArithmeticType>(lhs: ComplexRect<T>, rhs: ComplexRect<T>) -> B
 
 extension ComplexRect
 {
+    public func complexGridWithStepSize(stepSize: T) ->[[Complex<T>]]
+    {
+        let realSteps = Int(width / stepSize)
+        let imaginarySteps = Int(height / stepSize)
+
+        var complexGrid = [[Complex<T>]](count: imaginarySteps, repeatedValue: [Complex<T>](count: realSteps, repeatedValue: Complex<T>(0, 0)))
+        complexGrid = complexGrid.enumerate().map({
+            (imaginaryStep: Int, row: [Complex<T>]) -> [Complex<T>] in
+            let imaginary = topLeft.im - stepSize * T(imaginaryStep)
+            return row.enumerate().map({
+                (realStep: Int, _: Complex<T>) -> Complex<T> in
+                let real = topLeft.re + stepSize * T(realStep)
+                return Complex<T>(real, imaginary)
+            })
+        })
+
+        return complexGrid
+    }
     public func fitCGRect(toCGRect rect: CGRect) -> ComplexRect<T>
     {
         let rectWidth = T(CGRectGetWidth(rect))

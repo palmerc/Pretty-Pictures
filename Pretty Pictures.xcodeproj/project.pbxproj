@@ -23,6 +23,7 @@
 		C7AC09E41CC39E54000202E2 /* complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AC09E31CC39E54000202E2 /* complex.swift */; };
 		C7AC09E61CC3A25E000202E2 /* JuliaCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AC09E51CC3A25E000202E2 /* JuliaCalculator.swift */; };
 		C7AC09E81CC4C10A000202E2 /* ShipCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AC09E71CC4C10A000202E2 /* ShipCalculator.swift */; };
+		C7AC09EA1CC4EC4A000202E2 /* IntensityTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AC09E91CC4EC4A000202E2 /* IntensityTile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +57,6 @@
 		C77097341CBE4B4F002326D9 /* Pretty PicturesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pretty PicturesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C77097381CBE4B4F002326D9 /* Pretty_PicturesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pretty_PicturesUITests.swift; sourceTree = "<group>"; };
 		C770973A1CBE4B4F002326D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C77097641CBE4E82002326D9 /* MandelbrotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MandelbrotView.swift; sourceTree = "<group>"; };
 		C77097661CBE567B002326D9 /* ComplexRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexRect.swift; sourceTree = "<group>"; };
 		C770976A1CC241D5002326D9 /* JuliaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JuliaViewController.swift; sourceTree = "<group>"; };
 		C770976C1CC241E3002326D9 /* ShipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +66,7 @@
 		C7AC09E31CC39E54000202E2 /* complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = complex.swift; sourceTree = "<group>"; };
 		C7AC09E51CC3A25E000202E2 /* JuliaCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JuliaCalculator.swift; sourceTree = "<group>"; };
 		C7AC09E71CC4C10A000202E2 /* ShipCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipCalculator.swift; sourceTree = "<group>"; };
+		C7AC09E91CC4EC4A000202E2 /* IntensityTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntensityTile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,12 +122,12 @@
 				C770971A1CBE4B4F002326D9 /* MandelbrotViewController.swift */,
 				C77097701CC24842002326D9 /* ColorTile.swift */,
 				C77097721CC2833D002326D9 /* ContinuousColorTile.swift */,
+				C7AC09E91CC4EC4A000202E2 /* IntensityTile.swift */,
 				C770976E1CC247AD002326D9 /* MandelbrotCalculator.swift */,
 				C7AC09E51CC3A25E000202E2 /* JuliaCalculator.swift */,
 				C770976A1CC241D5002326D9 /* JuliaViewController.swift */,
 				C770976C1CC241E3002326D9 /* ShipViewController.swift */,
 				C7AC09E71CC4C10A000202E2 /* ShipCalculator.swift */,
-				C77097641CBE4E82002326D9 /* MandelbrotView.swift */,
 				C77097661CBE567B002326D9 /* ComplexRect.swift */,
 				C770971C1CBE4B4F002326D9 /* Main.storyboard */,
 				C770971F1CBE4B4F002326D9 /* Assets.xcassets */,
@@ -304,6 +305,7 @@
 				C77097191CBE4B4F002326D9 /* AppDelegate.swift in Sources */,
 				C77097711CC24842002326D9 /* ColorTile.swift in Sources */,
 				C770976F1CC247AD002326D9 /* MandelbrotCalculator.swift in Sources */,
+				C7AC09EA1CC4EC4A000202E2 /* IntensityTile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

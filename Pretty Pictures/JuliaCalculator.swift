@@ -15,7 +15,7 @@ public class JuliaCalculator
             let imaginary = topLeft.im - stepSize * Double(imaginaryStep)
             for realStep in 0 ..< realSteps {
                 let real = topLeft.re + stepSize * Double(realStep)
-                var juliaState = FractalState(iterations: 0, z: Complex(real, imaginary), c: Complex(coordinate.u, coordinate.v))
+                var juliaState = FractalState(iterations: 0, maximumIterations: maximumIterations, z: Complex(real, imaginary), c: Complex(coordinate.u, coordinate.v), degree: degree)
                 computeFractalStateForPoint(&juliaState, maximumIterations: maximumIterations, degree: degree)
                 states.append(juliaState)
             }
