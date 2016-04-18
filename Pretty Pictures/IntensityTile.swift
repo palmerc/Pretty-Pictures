@@ -3,7 +3,7 @@ import CoreGraphics
 
 
 
-public class IntensityTile : ColorTile
+public class IntensityTile : Tile
 {
     private var _states: [[FractalState]]
     private var _intensities: [[UInt8]]?
@@ -65,16 +65,6 @@ extension IntensityTile {
                 height = self._states.count
                 width = row.count
             }
-//
-//            var pixelValues = [UInt8]()
-//            if let intensities = self.intensities {
-//                for rowIndex in 0 ..< intensities.count {
-//                    let rowVector = intensities[rowIndex]
-//                    for columnIndex in 0 ..< rowVector.count {
-//                        pixelValues.append(rowVector[columnIndex])
-//                    }
-//                }
-//            }
 
             if let intensities = self.intensities, pixelValues: [UInt8] = Array<UInt8>(intensities.flatten()) {
                 let bitsPerComponent = 8

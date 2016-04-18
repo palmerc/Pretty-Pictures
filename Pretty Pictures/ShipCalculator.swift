@@ -5,24 +5,19 @@ import Darwin
 
 public class ShipCalculator
 {
-    public func pointsForComplexRect(complexRect: ComplexRect<Double>, stepSize: Double, maximumIterations: Int, degree: Int = 2) -> [FractalState]
+    public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]], maximumIterations: Int, degree: Int = 2) -> [[FractalState]]
     {
-        let topLeft = complexRect.topLeft
-        let realSteps = Int(floor(complexRect.width / stepSize))
-        let imaginarySteps = Int(floor(complexRect.height / stepSize))
-
-        var states = [FractalState]()
-        for imaginaryStep in 0 ..< imaginarySteps {
-            let imaginary = topLeft.im - stepSize * Double(imaginaryStep)
-            for realStep in 0 ..< realSteps {
-                let real = topLeft.re + stepSize * Double(realStep)
-                var shipSate = FractalState(iterations: 0, maximumIterations: maximumIterations, z: Complex(0, 0), c: Complex(real, imaginary), degree: degree)
-                computeFractalStateForPoint(&shipSate, maximumIterations: maximumIterations, degree: degree)
-                states.append(shipSate)
-            }
+        let fractalStates = complexGrid.map {
+            (complexVector: [Complex<Double>]) -> [FractalState] in
+            complexVector.map({
+                (complexPoint: Complex<Double>) -> FractalState in
+                var fractalState = FractalState(iterations: 0, maximumIterations: maximumIterations, z: Complex(0, 0), c: complexPoint, degree: degree)
+                computeFractalStateForPoint(&fractalState, maximumIterations: maximumIterations, degree: degree)
+                return fractalState
+            })
         }
 
-        return states
+        return fractalStates
     }
 
     private func computeFractalStateForPoint(inout fractalState: FractalState, maximumIterations: Int, degree: Int = 2)

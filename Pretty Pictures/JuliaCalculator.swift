@@ -4,24 +4,22 @@ import Foundation
 
 public class JuliaCalculator
 {
-    public func pointsForComplexRect(complexRect: ComplexRect<Double>, coordinate: (u: Double, v: Double), stepSize: Double, maximumIterations: Int, degree: Int = 2) -> [FractalState]
+    public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]],
+                                            coordinate: Complex<Double>,
+                                            maximumIterations: Int,
+                                            degree: Int = 2) -> [[FractalState]]
     {
-        let topLeft = complexRect.topLeft
-        let realSteps = Int(floor(complexRect.width / stepSize))
-        let imaginarySteps = Int(floor(complexRect.height / stepSize))
-
-        var states = [FractalState]()
-        for imaginaryStep in 0 ..< imaginarySteps {
-            let imaginary = topLeft.im - stepSize * Double(imaginaryStep)
-            for realStep in 0 ..< realSteps {
-                let real = topLeft.re + stepSize * Double(realStep)
-                var juliaState = FractalState(iterations: 0, maximumIterations: maximumIterations, z: Complex(real, imaginary), c: Complex(coordinate.u, coordinate.v), degree: degree)
-                computeFractalStateForPoint(&juliaState, maximumIterations: maximumIterations, degree: degree)
-                states.append(juliaState)
-            }
+        let fractalStates = complexGrid.map {
+            (complexVector: [Complex<Double>]) -> [FractalState] in
+            complexVector.map({
+                (complexPoint: Complex<Double>) -> FractalState in
+                var fractalState = FractalState(iterations: 0, maximumIterations: maximumIterations, z: complexPoint, c: coordinate, degree: degree)
+                computeFractalStateForPoint(&fractalState, maximumIterations: maximumIterations, degree: degree)
+                return fractalState
+            })
         }
 
-        return states
+        return fractalStates
     }
 
     private func computeFractalStateForPoint(inout fractalState: FractalState, maximumIterations: Int, degree: Int = 2)

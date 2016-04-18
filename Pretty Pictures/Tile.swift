@@ -1,7 +1,7 @@
 import UIKit
 
 
-protocol ColorTile
+protocol Tile
 {
 //    var colors: [UIColor]? { mutating get }
 }

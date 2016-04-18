@@ -2,7 +2,7 @@ import UIKit
 
 
 
-public struct ContinuousColorTile : ColorTile
+public struct ContinuousColorTile : Tile
 {
     private var _states: [[FractalState]]
     private var _maximumIterations: Int

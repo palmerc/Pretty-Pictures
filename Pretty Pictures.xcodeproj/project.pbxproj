@@ -18,7 +18,7 @@
 		C770976B1CC241D5002326D9 /* JuliaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C770976A1CC241D5002326D9 /* JuliaViewController.swift */; };
 		C770976D1CC241E3002326D9 /* ShipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C770976C1CC241E3002326D9 /* ShipViewController.swift */; };
 		C770976F1CC247AD002326D9 /* MandelbrotCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C770976E1CC247AD002326D9 /* MandelbrotCalculator.swift */; };
-		C77097711CC24842002326D9 /* ColorTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77097701CC24842002326D9 /* ColorTile.swift */; };
+		C77097711CC24842002326D9 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77097701CC24842002326D9 /* Tile.swift */; };
 		C77097731CC2833D002326D9 /* ContinuousColorTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77097721CC2833D002326D9 /* ContinuousColorTile.swift */; };
 		C7AC09E41CC39E54000202E2 /* complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AC09E31CC39E54000202E2 /* complex.swift */; };
 		C7AC09E61CC3A25E000202E2 /* JuliaCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AC09E51CC3A25E000202E2 /* JuliaCalculator.swift */; };
@@ -61,7 +61,7 @@
 		C770976A1CC241D5002326D9 /* JuliaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JuliaViewController.swift; sourceTree = "<group>"; };
 		C770976C1CC241E3002326D9 /* ShipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipViewController.swift; sourceTree = "<group>"; };
 		C770976E1CC247AD002326D9 /* MandelbrotCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MandelbrotCalculator.swift; sourceTree = "<group>"; };
-		C77097701CC24842002326D9 /* ColorTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorTile.swift; sourceTree = "<group>"; };
+		C77097701CC24842002326D9 /* Tile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		C77097721CC2833D002326D9 /* ContinuousColorTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinuousColorTile.swift; sourceTree = "<group>"; };
 		C7AC09E31CC39E54000202E2 /* complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = complex.swift; sourceTree = "<group>"; };
 		C7AC09E51CC3A25E000202E2 /* JuliaCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JuliaCalculator.swift; sourceTree = "<group>"; };
@@ -120,7 +120,7 @@
 				C77097461CBE4D9D002326D9 /* 3rd Party */,
 				C77097181CBE4B4F002326D9 /* AppDelegate.swift */,
 				C770971A1CBE4B4F002326D9 /* MandelbrotViewController.swift */,
-				C77097701CC24842002326D9 /* ColorTile.swift */,
+				C77097701CC24842002326D9 /* Tile.swift */,
 				C77097721CC2833D002326D9 /* ContinuousColorTile.swift */,
 				C7AC09E91CC4EC4A000202E2 /* IntensityTile.swift */,
 				C770976E1CC247AD002326D9 /* MandelbrotCalculator.swift */,
@@ -303,7 +303,7 @@
 				C770976B1CC241D5002326D9 /* JuliaViewController.swift in Sources */,
 				C77097671CBE567B002326D9 /* ComplexRect.swift in Sources */,
 				C77097191CBE4B4F002326D9 /* AppDelegate.swift in Sources */,
-				C77097711CC24842002326D9 /* ColorTile.swift in Sources */,
+				C77097711CC24842002326D9 /* Tile.swift in Sources */,
 				C770976F1CC247AD002326D9 /* MandelbrotCalculator.swift in Sources */,
 				C7AC09EA1CC4EC4A000202E2 /* IntensityTile.swift in Sources */,
 			);

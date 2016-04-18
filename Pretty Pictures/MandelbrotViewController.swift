@@ -5,7 +5,8 @@ import UIKit
 class MandelbrotViewController: UIViewController
 {
     var startRect = ComplexRect<Double>(Complex<Double>(-2.1, 1.5), Complex<Double>(1.0, -1.5))
-    
+    var maximumIterations = 1024
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,7 +19,7 @@ class MandelbrotViewController: UIViewController
         let complexGrid = visibleComplexRect.complexGridWithStepSize(stepSize)
 
         let mc = MandelbrotCalculator()
-        let states = mc.fractalStatesForComplexGrid(complexGrid, maximumIterations: 1024)
+        let states = mc.fractalStatesForComplexGrid(complexGrid, maximumIterations: self.maximumIterations)
         let intensityTile = IntensityTile(states: states)
         let CGImage = intensityTile.CGImage
         if let imageRef = CGImage {
