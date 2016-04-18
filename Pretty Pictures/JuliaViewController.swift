@@ -4,6 +4,8 @@ import UIKit
 
 class JuliaViewController: UIViewController
 {
+    @IBOutlet weak var imageView: UIImageView!
+    
     var startRect = ComplexRect<Double>(Complex<Double>(-2.1, 1.5), Complex<Double>(2.0, -1.5))
     var defaultCoordinate = Complex<Double>(-0.7269, 0.1889)
     var maximumIterations = 1024
@@ -26,7 +28,7 @@ class JuliaViewController: UIViewController
             let CGImage = intensityTile.CGImage
             if let imageRef = CGImage {
                 let im = UIImage(CGImage: imageRef, scale: scaleFactor, orientation: .Up)
-                print("\(im)")
+                self.imageView.image = im
             }
         })
     }

@@ -4,6 +4,8 @@ import UIKit
 
 class MandelbrotViewController: UIViewController
 {
+    @IBOutlet weak var imageView: UIImageView!
+    
     var startRect = ComplexRect<Double>(Complex<Double>(-2.1, 1.5), Complex<Double>(1.0, -1.5))
     var maximumIterations = 1024
     var degree = 2
@@ -26,7 +28,7 @@ class MandelbrotViewController: UIViewController
             let CGImage = intensityTile.CGImage
             if let imageRef = CGImage {
                 let im = UIImage(CGImage: imageRef, scale: scaleFactor, orientation: .Up)
-                print("\(im)")
+                self.imageView.image = im
             }
         })
     }

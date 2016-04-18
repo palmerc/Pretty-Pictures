@@ -4,6 +4,8 @@ import UIKit
 
 class ShipViewController: UIViewController
 {
+    @IBOutlet weak var imageView: UIImageView!
+
     var startRect = ComplexRect<Double>(Complex<Double>(1.936, 0.008998), Complex<Double>(1.945998, -0.001))
     var defaultCoordinate = (u: 1.941, v: -0.004)
     var maximumIterations = 256
@@ -26,7 +28,7 @@ class ShipViewController: UIViewController
             let CGImage = intensityTile.CGImage
             if let imageRef = CGImage {
                 let im = UIImage(CGImage: imageRef, scale: scaleFactor, orientation: .Up)
-                print("\(im)")
+                self.imageView.image = im
             }
         })
     }

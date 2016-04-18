@@ -16,9 +16,23 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mSx-DO-sFD">
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="mSx-DO-sFD" secondAttribute="bottom" id="QcL-yX-mF5"/>
+                            <constraint firstAttribute="trailing" secondItem="mSx-DO-sFD" secondAttribute="trailing" id="heu-o4-u6S"/>
+                            <constraint firstItem="mSx-DO-sFD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="vhZ-KL-nnW"/>
+                            <constraint firstItem="mSx-DO-sFD" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="zob-mH-KdF"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Mandelbrot" id="02T-cQ-hBp"/>
+                    <connections>
+                        <outlet property="imageView" destination="mSx-DO-sFD" id="sYV-YQ-dE3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -35,9 +49,23 @@
                     <view key="view" contentMode="scaleToFill" id="Q2a-Xw-rB6">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5kX-dj-ELH">
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5kX-dj-ELH" firstAttribute="top" secondItem="V1t-Eu-XUb" secondAttribute="bottom" id="4cb-VP-L5K"/>
+                            <constraint firstAttribute="trailing" secondItem="5kX-dj-ELH" secondAttribute="trailing" id="4hd-1y-XIE"/>
+                            <constraint firstItem="5kX-dj-ELH" firstAttribute="leading" secondItem="Q2a-Xw-rB6" secondAttribute="leading" id="OF8-6M-ito"/>
+                            <constraint firstItem="QEB-ZV-cdi" firstAttribute="top" secondItem="5kX-dj-ELH" secondAttribute="bottom" id="zXb-Rh-rfS"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Ship" id="bpi-8H-7D6"/>
+                    <connections>
+                        <outlet property="imageView" destination="5kX-dj-ELH" id="U2A-0C-hVO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iWU-Et-DSm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -73,9 +101,23 @@
                     <view key="view" contentMode="scaleToFill" id="a50-I2-mlQ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gXh-WR-J6l">
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gXh-WR-J6l" firstAttribute="leading" secondItem="a50-I2-mlQ" secondAttribute="leading" id="1Vq-Oy-SqG"/>
+                            <constraint firstItem="gXh-WR-J6l" firstAttribute="top" secondItem="5MV-YC-GY9" secondAttribute="bottom" id="fp8-8S-sfi"/>
+                            <constraint firstAttribute="trailing" secondItem="gXh-WR-J6l" secondAttribute="trailing" id="mm4-fY-PCx"/>
+                            <constraint firstItem="sRu-QV-d9S" firstAttribute="top" secondItem="gXh-WR-J6l" secondAttribute="bottom" id="xaH-Rr-iuY"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Julia" id="C4y-bb-d9R"/>
+                    <connections>
+                        <outlet property="imageView" destination="gXh-WR-J6l" id="e16-ER-2pB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fjD-oK-wHx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
