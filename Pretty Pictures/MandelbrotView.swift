@@ -8,33 +8,7 @@ public class MandelbrotView: UIView
     private let colorCount = 64
     private var colorSet = Array<UIColor>()
 
-    public var mandelbrotRect = ComplexRect(Complex(-2.1, 1.5), Complex(1.0, -1.5))
-    private var visibleComplexRect: ComplexRect {
-        get {
-            let topLeft = self.mandelbrotRect.topLeft
-            let bottomRight = self.mandelbrotRect.bottomRight
-
-            let viewWidth = CGRectGetWidth(self.bounds)
-            let viewHeight = CGRectGetHeight(self.bounds)
-
-            var tlr = topLeft.real
-            var tli = topLeft.imaginary
-            var brr = bottomRight.real
-            var bri = bottomRight.imaginary
-
-            if viewWidth > viewHeight {
-                let scalingFactor = Double(viewWidth / viewHeight)
-                tlr = topLeft.real * scalingFactor
-                brr = bottomRight.real * scalingFactor
-            } else {
-                let scalingFactor = Double(viewHeight / viewWidth)
-                tli = topLeft.imaginary * scalingFactor
-                bri = bottomRight.imaginary * scalingFactor
-            }
-
-            return ComplexRect(Complex(tlr, tli), Complex(brr, bri))
-        }
-    }
+    public var mandelbrotRect = ComplexRect<Double>(Complex<Double>(-2.1, 1.5), Complex<Double>(1.0, -1.5))
 
     public override func drawRect(rect : CGRect)
     {
@@ -61,12 +35,12 @@ public class MandelbrotView: UIView
         }
     }
 
-    private func computeMandelbrotPoint(C: Complex) -> UIColor
+    private func computeMandelbrotPoint(C: Complex<Double>) -> UIColor
     {
         // Calculate whether the point is inside or outside the Mandelbrot set
         // Zn+1 = (Zn)^2 + c -- start with Z0 = 0
 
-        var z = Complex(0, 0)
+        var z = Complex<Double>(0, 0)
         for iteration in 1...colorCount {
             z = z*z + C
             if abs(z) > 2 {
@@ -77,7 +51,7 @@ public class MandelbrotView: UIView
         return UIColor.blackColor()
     }
 
-    private func complexCoordinatesWithViewCoordinates(x x: Double, y: Double, rect: CGRect) -> Complex
+    private func complexCoordinatesWithViewCoordinates(x x: Double, y: Double, rect: CGRect) -> Complex<Double>
     {
         let topLeft = self.visibleComplexRect.topLeft
         let bottomRight = self.visibleComplexRect.bottomRight
@@ -86,18 +60,18 @@ public class MandelbrotView: UIView
         let viewHeight = Double(rect.size.height)
 
         let difference = bottomRight - topLeft
-        let real = topLeft.real + (x / viewWidth * difference.real)
-        let imaginary = topLeft.imaginary + (y / viewHeight * difference.imaginary)
+        let real = topLeft.re + (x / viewWidth * difference.re)
+        let imaginary = topLeft.im + (y / viewHeight * difference.im)
 
         return Complex(real, imaginary)
     }
 
-    private func complexCoordinatesToViewCoordinates(c: Complex, rect: CGRect) -> CGPoint
+    private func complexCoordinatesToViewCoordinates(c: Complex<Double>, rect: CGRect) -> CGPoint
     {
         let topLeft = self.visibleComplexRect.topLeft
         let bottomRight = self.visibleComplexRect.bottomRight
-        let x = (c.real - topLeft.real) / (bottomRight.real - topLeft.real) * Double(rect.size.width)
-        let y = (c.imaginary - topLeft.imaginary) / (bottomRight.imaginary - topLeft.imaginary) * Double(rect.size.height)
+        let x = (c.re - topLeft.re) / (bottomRight.re - topLeft.re) * Double(rect.size.width)
+        let y = (c.im - topLeft.im) / (bottomRight.im - topLeft.im) * Double(rect.size.height)
 
         return CGPoint(x: x,y: y)
     }

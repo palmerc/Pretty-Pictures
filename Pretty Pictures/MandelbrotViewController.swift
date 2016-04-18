@@ -4,57 +4,25 @@ import UIKit
 
 class MandelbrotViewController: UIViewController
 {
-    var mandelbrotRect = ComplexRect(Complex(-2.1, 1.5), Complex(1.0, -1.5))
-    private var visibleComplexRect: ComplexRect {
-        get {
-            let topLeft = self.mandelbrotRect.topLeft
-            let bottomRight = self.mandelbrotRect.bottomRight
-
-            let viewWidth = Double(CGRectGetWidth(self.view.bounds))
-            let viewHeight = Double(CGRectGetHeight(self.view.bounds))
-
-            var tlr = topLeft.real
-            var tli = topLeft.imaginary
-            var brr = bottomRight.real
-            var bri = bottomRight.imaginary
-
-            var aspectRatio: Double
-            if viewWidth > viewHeight {
-                aspectRatio = viewWidth / viewHeight
-                tlr = topLeft.real * aspectRatio
-                brr = bottomRight.real * aspectRatio
-            } else {
-                aspectRatio = viewHeight / viewWidth
-                tli = topLeft.imaginary * aspectRatio
-                bri = bottomRight.imaginary * aspectRatio
-            }
-
-            return ComplexRect(Complex(tlr, tli), Complex(brr, bri))
-        }
-    }
-
+    var startRect = ComplexRect<Double>(Complex<Double>(-2.1, 1.5), Complex<Double>(1.0, -1.5))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        return
         let scaleFactor = UIScreen.mainScreen().scale
         let screenWidth = CGRectGetWidth(self.view.bounds) * scaleFactor
         let screenHeight = CGRectGetHeight(self.view.bounds) * scaleFactor
-        let realWidth = abs(self.visibleComplexRect.bottomRight.real - self.visibleComplexRect.topLeft.real)
-        let realStepSize = realWidth / Double(screenWidth)
-        let imaginaryHeight = abs(self.visibleComplexRect.bottomRight.imaginary - self.visibleComplexRect.topLeft.imaginary)
-        let imaginaryStepSize = imaginaryHeight / Double(screenHeight)
-//        let m = MandelbrotView(frame: self.view.bounds)
-//        self.view.addSubview(m)
-//
-//        let viewsDictionary = ["m": m]
-//        let constraints = NSLayoutConstraint.constraintsWithVisualFormat("|[m]|", options: [.AlignAllTop, .AlignAllBottom], metrics: nil, views: viewsDictionary)
-//        self.view.addConstraints(constraints)
+        let targetRect = CGRectMake(0, 0, screenWidth, screenHeight)
+        let visibleComplexRect = self.startRect.fitCGRect(toCGRect: targetRect)
+
+        let stepSize = self.startRect.width / Double(screenWidth)
 
         let mc = MandelbrotCalculator()
-        let states = mc.pointsForComplexRect(self.visibleComplexRect, realStepSize: realStepSize, imaginaryStepSize: imaginaryStepSize, maximumIterations: 1024)
+
+        let states = mc.pointsForComplexRect(visibleComplexRect, stepSize: stepSize, maximumIterations: 1024)
         var tile = ContinuousColorTile(states: states, maximumIterations: 1024, width:Int(screenWidth), height: Int(screenHeight))
         var pixels = [UInt8]()
-        let values = tile.intensities
         if let intensities = tile.colorLookup {
             for y in 0 ..< Int(screenHeight) {
                 for x in 0 ..< Int(screenWidth) {

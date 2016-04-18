@@ -4,7 +4,7 @@ import UIKit
 
 public struct ContinuousColorTile : ColorTile
 {
-    private var _states: [MandelbrotState]
+    private var _states: [FractalState]
     private var _maximumIterations: Int
     private var _width: Int
     private var _height: Int
@@ -16,9 +16,9 @@ public struct ContinuousColorTile : ColorTile
         mutating get {
             if self._colors == nil {
                 self._colors = _states.map({
-                    (state: MandelbrotState) -> UIColor in
+                    (state: FractalState) -> UIColor in
                     let z = state.z
-                    let logZ = log(z.real * z.real + z.imaginary * z.imaginary) / 2.0
+                    let logZ = log(z.re * z.re + z.im * z.im) / 2.0
                     let normalized = log( logZ / log(2) ) / log(2)
                     let iterations = CGFloat(state.iterations) + 1.0 - CGFloat(normalized)
                     let percentage = iterations / CGFloat(self._maximumIterations)
@@ -35,14 +35,14 @@ public struct ContinuousColorTile : ColorTile
     {
         mutating get {
             if self._intensities == nil {
-                let values = _states.map({ (ms: MandelbrotState) -> Int in
+                let values = _states.map({ (ms: FractalState) -> Int in
                     return ms.iterations
                 })
                 let max = values.maxElement()!
                 self._intensities = _states.map({
-                    (state: MandelbrotState) -> UInt8 in
+                    (state: FractalState) -> UInt8 in
 //                    let z = state.z
-//                    let logZ = log(z.real * z.real + z.imaginary * z.imaginary) / 2.0
+//                    let logZ = log(z.real * z.real + z.imaginary * z.im) / 2.0
 //                    let normalized = log( logZ / log(2) ) / log(2)
 //                    let iterations = CGFloat(state.iterations) + 1.0 - CGFloat(normalized)
 //                    let percentage = iterations / CGFloat(self._maximumIterations)
@@ -61,7 +61,7 @@ public struct ContinuousColorTile : ColorTile
         mutating get {
             if self._colorLookup == nil {
                 self._colorLookup = _states.map({
-                    (state: MandelbrotState) -> UIColor in
+                    (state: FractalState) -> UIColor in
                     return _colorSet[state.iterations]
                 })
             }
@@ -71,7 +71,7 @@ public struct ContinuousColorTile : ColorTile
 
     }
 
-    init(states: [MandelbrotState], maximumIterations: Int, width: Int, height: Int)
+    init(states: [FractalState], maximumIterations: Int, width: Int, height: Int)
     {
         self._states = states
         self._maximumIterations = maximumIterations

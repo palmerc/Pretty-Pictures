@@ -27,7 +27,7 @@
         <!--Ship-->
         <scene sceneID="cTI-Rx-0UU">
             <objects>
-                <viewController title="Ship" id="UXM-G5-pRf" customClass="JuliaViewController" customModule="Pretty_Pictures" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Ship" id="UXM-G5-pRf" customClass="ShipViewController" customModule="Pretty_Pictures" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="V1t-Eu-XUb"/>
                         <viewControllerLayoutGuide type="bottom" id="QEB-ZV-cdi"/>
@@ -65,7 +65,7 @@
         <!--Julia-->
         <scene sceneID="FM4-BB-Wwf">
             <objects>
-                <viewController title="Julia" id="gQ4-4D-5qc" customClass="ShipViewController" customModule="Pretty_Pictures" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Julia" id="gQ4-4D-5qc" customClass="JuliaViewController" customModule="Pretty_Pictures" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5MV-YC-GY9"/>
                         <viewControllerLayoutGuide type="bottom" id="sRu-QV-d9S"/>

@@ -1,34 +1,31 @@
 import UIKit
 
 
-public struct MandelbrotState
+public struct FractalState
 {
     var iterations: Int
-    var z: Complex
-    var c: Complex
+    var z: Complex<Double>
+    var c: Complex<Double>
 }
 
 
 
 public class MandelbrotCalculator
 {
-    public func pointsForComplexRect(complexRect: ComplexRect, realStepSize: Double, imaginaryStepSize: Double, maximumIterations: Int, degree: Int = 2) -> [MandelbrotState]
+    public func pointsForComplexRect(complexRect: ComplexRect<Double>, stepSize: Double, maximumIterations: Int, degree: Int = 2) -> [FractalState]
     {
         let topLeft = complexRect.topLeft
-        let bottomRight = complexRect.bottomRight
-        let width = abs(bottomRight.real - topLeft.real)
-        let realSteps = Int(floor(width / realStepSize))
-        let height = abs(topLeft.imaginary - bottomRight.imaginary)
-        let imaginarySteps = Int(floor(height / imaginaryStepSize))
+        let realSteps = Int(floor(complexRect.width / stepSize))
+        let imaginarySteps = Int(floor(complexRect.height / stepSize))
 
-        var states = [MandelbrotState]()
+        var states = [FractalState]()
         var escapeTimes = [Int]()
         for imaginaryStep in 0 ..< imaginarySteps {
-            let imaginary = topLeft.imaginary - imaginaryStepSize * Double(imaginaryStep)
+            let imaginary = topLeft.im - stepSize * Double(imaginaryStep)
             for realStep in 0 ..< realSteps {
-                let real = topLeft.real + realStepSize * Double(realStep)
-                var mandelbrotState = MandelbrotState(iterations: 0, z: Complex(0, 0), c: Complex(real, imaginary))
-                computeMandelbrotStateForPoint(&mandelbrotState, maximumIterations: maximumIterations, degree: degree)
+                let real = topLeft.re + stepSize * Double(realStep)
+                var mandelbrotState = FractalState(iterations: 0, z: Complex(real, imaginary), c: Complex(real, imaginary))
+                computeFractalStateForPoint(&mandelbrotState, maximumIterations: maximumIterations, degree: degree)
                 states.append(mandelbrotState)
                 escapeTimes.append(mandelbrotState.iterations)
             }
@@ -37,7 +34,7 @@ public class MandelbrotCalculator
         return states
     }
 
-    private func computeMandelbrotStateForPoint(inout mandelbrotState: MandelbrotState, maximumIterations: Int, degree: Int = 2)
+    private func computeFractalStateForPoint(inout mandelbrotState: FractalState, maximumIterations: Int, degree: Int = 2)
     {
         // Calculate whether the point is inside or outside the Mandelbrot set
         // Zn+1 = (Zn)^2 + c -- start with Z0 = 0
@@ -46,7 +43,7 @@ public class MandelbrotCalculator
         let c = mandelbrotState.c
 
         for iteration in 1...maximumIterations {
-            z = z * z + c
+            z = pow(z, degree) + c
             if abs(z) > 2 {
                 iterations = iteration
                 break;
