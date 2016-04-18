@@ -3,7 +3,7 @@ import Darwin
 
 
 
-public class ShipCalculator
+public class ShipCalculator: Calculator
 {
     public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]], maximumIterations: Int, degree: Int = 2) -> [[FractalState]]
     {

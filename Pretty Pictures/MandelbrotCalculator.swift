@@ -1,18 +1,8 @@
 import UIKit
 
 
-public struct FractalState
-{
-    var iterations: Int
-    var maximumIterations: Int
-    var z: Complex<Double>
-    var c: Complex<Double>
-    var degree: Int
-}
 
-
-
-public class MandelbrotCalculator
+public class MandelbrotCalculator: Calculator
 {
     public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]], maximumIterations: Int, degree: Int = 2) -> [[FractalState]]
     {

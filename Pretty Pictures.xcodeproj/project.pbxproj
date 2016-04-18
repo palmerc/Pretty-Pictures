@@ -24,6 +24,8 @@
 		C7AC09E61CC3A25E000202E2 /* JuliaCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AC09E51CC3A25E000202E2 /* JuliaCalculator.swift */; };
 		C7AC09E81CC4C10A000202E2 /* ShipCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AC09E71CC4C10A000202E2 /* ShipCalculator.swift */; };
 		C7AC09EA1CC4EC4A000202E2 /* IntensityTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AC09E91CC4EC4A000202E2 /* IntensityTile.swift */; };
+		C7AC09EC1CC580E1000202E2 /* FractalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AC09EB1CC580E1000202E2 /* FractalState.swift */; };
+		C7AC09EE1CC580FF000202E2 /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AC09ED1CC580FF000202E2 /* Calculator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		C7AC09E51CC3A25E000202E2 /* JuliaCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JuliaCalculator.swift; sourceTree = "<group>"; };
 		C7AC09E71CC4C10A000202E2 /* ShipCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipCalculator.swift; sourceTree = "<group>"; };
 		C7AC09E91CC4EC4A000202E2 /* IntensityTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntensityTile.swift; sourceTree = "<group>"; };
+		C7AC09EB1CC580E1000202E2 /* FractalState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FractalState.swift; sourceTree = "<group>"; };
+		C7AC09ED1CC580FF000202E2 /* Calculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +127,8 @@
 				C77097701CC24842002326D9 /* Tile.swift */,
 				C77097721CC2833D002326D9 /* ContinuousColorTile.swift */,
 				C7AC09E91CC4EC4A000202E2 /* IntensityTile.swift */,
+				C7AC09EB1CC580E1000202E2 /* FractalState.swift */,
+				C7AC09ED1CC580FF000202E2 /* Calculator.swift */,
 				C770976E1CC247AD002326D9 /* MandelbrotCalculator.swift */,
 				C7AC09E51CC3A25E000202E2 /* JuliaCalculator.swift */,
 				C770976A1CC241D5002326D9 /* JuliaViewController.swift */,
@@ -303,8 +309,10 @@
 				C770976B1CC241D5002326D9 /* JuliaViewController.swift in Sources */,
 				C77097671CBE567B002326D9 /* ComplexRect.swift in Sources */,
 				C77097191CBE4B4F002326D9 /* AppDelegate.swift in Sources */,
+				C7AC09EE1CC580FF000202E2 /* Calculator.swift in Sources */,
 				C77097711CC24842002326D9 /* Tile.swift in Sources */,
 				C770976F1CC247AD002326D9 /* MandelbrotCalculator.swift in Sources */,
+				C7AC09EC1CC580E1000202E2 /* FractalState.swift in Sources */,
 				C7AC09EA1CC4EC4A000202E2 /* IntensityTile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

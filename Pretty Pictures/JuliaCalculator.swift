@@ -2,7 +2,7 @@ import Foundation
 
 
 
-public class JuliaCalculator
+public class JuliaCalculator: Calculator
 {
     public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]],
                                             coordinate: Complex<Double>,
