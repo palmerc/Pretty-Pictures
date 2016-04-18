@@ -4,6 +4,20 @@ import UIKit
 
 public class MandelbrotCalculator: Calculator
 {
+    var queue = dispatch_queue_create("MandelbrotCalculator", nil)
+
+    public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]], maximumIterations: Int, degree: Int = 2, withCompletionHandler handler: (([[FractalState]])->())?)
+    {
+        if let handler = handler {
+            dispatch_async(self.queue) {
+                let fractalStates = self.fractalStatesForComplexGrid(complexGrid, maximumIterations: maximumIterations, degree: degree)
+                dispatch_async(dispatch_get_main_queue(), {
+                    handler(fractalStates);
+                })
+            }
+        }
+    }
+
     public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]], maximumIterations: Int, degree: Int = 2) -> [[FractalState]]
     {
         let fractalStates = complexGrid.map {

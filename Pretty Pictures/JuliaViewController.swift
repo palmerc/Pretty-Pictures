@@ -20,13 +20,15 @@ class JuliaViewController: UIViewController
         let complexGrid = visibleComplexRect.complexGridWithStepSize(stepSize)
 
         let jc = JuliaCalculator()
-        let states = jc.fractalStatesForComplexGrid(complexGrid, coordinate: self.defaultCoordinate, maximumIterations: self.maximumIterations)
-        let intensityTile = IntensityTile(states: states)
-        let CGImage = intensityTile.CGImage
-        if let imageRef = CGImage {
-            let im = UIImage(CGImage: imageRef, scale: scaleFactor, orientation: .Up)
-            print("\(im)")
-        }
+        jc.fractalStatesForComplexGrid(complexGrid, coordinate: self.defaultCoordinate, maximumIterations: self.maximumIterations, withCompletionHandler: {
+            (fractalStates: [[FractalState]]) in
+            let intensityTile = IntensityTile(states: fractalStates)
+            let CGImage = intensityTile.CGImage
+            if let imageRef = CGImage {
+                let im = UIImage(CGImage: imageRef, scale: scaleFactor, orientation: .Up)
+                print("\(im)")
+            }
+        })
     }
 
     override func didReceiveMemoryWarning() {

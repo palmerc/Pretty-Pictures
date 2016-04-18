@@ -20,13 +20,15 @@ class ShipViewController: UIViewController
         let complexGrid = visibleComplexRect.complexGridWithStepSize(stepSize)
 
         let sc = ShipCalculator()
-        let states = sc.fractalStatesForComplexGrid(complexGrid, maximumIterations: self.maximumIterations)
-        let intensityTile = IntensityTile(states: states)
-        let CGImage = intensityTile.CGImage
-        if let imageRef = CGImage {
-            let im = UIImage(CGImage: imageRef, scale: scaleFactor, orientation: .Up)
-            print("\(im)")
-        }
+        sc.fractalStatesForComplexGrid(complexGrid, maximumIterations: self.maximumIterations, withCompletionHandler: {
+            (fractalStates: [[FractalState]]) in
+            let intensityTile = IntensityTile(states: fractalStates)
+            let CGImage = intensityTile.CGImage
+            if let imageRef = CGImage {
+                let im = UIImage(CGImage: imageRef, scale: scaleFactor, orientation: .Up)
+                print("\(im)")
+            }
+        })
     }
 
     override func didReceiveMemoryWarning() {
