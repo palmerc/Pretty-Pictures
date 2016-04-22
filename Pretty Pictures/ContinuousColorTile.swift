@@ -1,98 +1,144 @@
 import UIKit
+import CoreGraphics
 
 
 
-public struct ContinuousColorTile : Tile
+public class ContinuousColorTile : Tile
 {
     private var _states: [[FractalState]]
-    private var _maximumIterations: Int
-    private var _width: Int
-    private var _height: Int
-    private var _colorSet: [UIColor]!
-
-//    private var _colors: [UIColor]?
-//    public var colors: [UIColor]?
-//    {
-//        mutating get {
-//            if self._colors == nil {
-//                self._colors = _states.map({
-//                    (state: FractalState) -> UIColor in
-//                    let z = state.z
-//                    let logZ = log(z.re * z.re + z.im * z.im) / 2.0
-//                    let normalized = log( logZ / log(2) ) / log(2)
-//                    let iterations = CGFloat(state.iterations) + 1.0 - CGFloat(normalized)
-//                    let percentage = iterations / CGFloat(self._maximumIterations)
-//                    return UIColor(hue: percentage, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-//                })
-//            }
-//
-//            return _colors
-//        }
-//    }
-
-//    private var _intensities: [UInt8]?
-//    public var intensities: [UInt8]?
-//    {
-//        mutating get {
-//            if self._intensities == nil {
-//                let values = _states.map({ (ms: FractalState) -> Int in
-//                    return ms.iterations
-//                })
-//                let max = values.maxElement()!
-//                self._intensities = _states.map({
-//                    (state: FractalState) -> UInt8 in
-////                    let z = state.z
-////                    let logZ = log(z.real * z.real + z.imaginary * z.im) / 2.0
-////                    let normalized = log( logZ / log(2) ) / log(2)
-////                    let iterations = CGFloat(state.iterations) + 1.0 - CGFloat(normalized)
-////                    let percentage = iterations / CGFloat(self._maximumIterations)
-//                    let percentage = Float(state.iterations) / Float(max)
-//                    return UInt8(percentage * 255.0)
-//                })
-//            }
-//
-//            return _intensities
-//        }
-//    }
-
-    public var _colorLookup: [[UIColor]]?
-    public var colorLookup: [[UIColor]]?
-    {
-        mutating get {
-            if self._colorLookup == nil {
-                self._colorLookup = _states.map({
-                    (stateVector: [FractalState]) -> [UIColor] in
-                    return stateVector.map({ (state: FractalState) -> UIColor in
-                        return _colorSet[state.iterations]
-                    })
-                })
+    private var _colors: [[PixelData]]?
+    public var colors: [[PixelData]]? {
+        get {
+            if _colors == nil {
+                computeColors()
             }
-
-            return _colorLookup
+            return _colors
         }
-
     }
 
-    init(states: [[FractalState]], maximumIterations: Int, width: Int, height: Int)
+    init(states: [[FractalState]])
     {
         self._states = states
-        self._maximumIterations = maximumIterations
-        self._width = width
-        self._height = height
-
-        initializeColors()
     }
 
-    private mutating func initializeColors()
+    private func computeColors()
     {
-        self._colorSet = [UIColor]()
-        for index in 0...1024 {
-            let indexD = CGFloat(index)
-            let color = UIColor(hue: abs(sin(indexD/30.0)),
-                                saturation: 1.0,
-                                brightness: indexD/100.0 + 0.8,
-                                alpha: 1.0)
-            self._colorSet.append(color)
+        self._colors = _states.map({
+            (stateVector: [FractalState]) -> [PixelData] in
+
+            return stateVector.map({ (state: FractalState) -> PixelData in
+                var color: PixelData
+
+                switch (state.type) {
+                case .Mandelbrot:
+                    color = self.colorForMandelbrotFractalState(state)
+                    break
+                case .Julia:
+                    color = self.colorForJuliaFractalState(state)
+                    break
+                case .BurningShip:
+                    color = self.colorForMandelbrotFractalState(state)
+                    break
+                }
+
+                return color
+            })
+        })
+    }
+
+    private func colorForMandelbrotFractalState(state: FractalState) -> PixelData
+    {
+        var color: PixelData = PixelData(red: 0, green: 0, blue: 0)
+        if state.iterations > 0 {
+            let z = state.z
+            let degree = Double(state.degree) * 2
+            let length = sqrt(pow(z.re, 2) + pow(z.im, 2))
+            let normalized = log(log(length)) / log(degree)
+            let hueAngle = Double(state.iterations) + 1.0 - normalized
+            let hueAdjustment = 20.0 * hueAngle + 0.95;
+            var angle = hueAdjustment % 360.0
+            if angle < 0.0 {
+                angle = angle + 360.0
+            }
+
+            color = PixelData.pixelDataFromHSB(hueAngle: angle, saturation: 0.91, brightness: 0.99)
         }
+
+        return color
+    }
+
+    private func colorForJuliaFractalState(state: FractalState) -> PixelData
+    {
+        var color: PixelData = PixelData(red: 0, green: 0, blue: 0)
+        if state.iterations > 0 {
+            let z = state.z
+            let degree = Double(state.degree) * 2
+            let length = sqrt(pow(z.re, 2) + pow(z.im, 2))
+            let normalized = log(log(length)) / log(degree * 2)
+            let hueAngle = Double(state.iterations) + 1.0 - normalized
+            let hueAdjustment = 10.0 * hueAngle + 0.95;
+            var angle = hueAdjustment % 360.0
+            if angle < 0.0 {
+                angle = angle + 360.0
+            }
+
+            color = PixelData.pixelDataFromHSB(hueAngle: angle, saturation: 0.91, brightness: 0.99)
+        }
+
+        return color
+    }
+}
+
+extension ContinuousColorTile {
+    public var CGImage: CGImageRef? {
+        get {
+            var imageRef: CGImageRef?
+
+            var width = 0
+            var height = 0
+            if let row = self._states.first {
+                height = self._states.count
+                width = row.count
+            }
+
+            if let colors = self.colors, pixelValues: [PixelData] = Array<PixelData>(colors.flatten()) {
+                let bitsPerComponent = 8
+                let bytesPerPixel = 4
+                let bitsPerPixel = bytesPerPixel * bitsPerComponent
+                let bytesPerRow = bytesPerPixel * width
+                let totalBytes = height * bytesPerRow
+                let providerRef = CGDataProviderCreateWithData(nil, pixelValues, totalBytes, nil)
+
+                let colorSpaceRef = CGColorSpaceCreateDeviceRGB()
+                let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.NoneSkipLast.rawValue)
+                    .union(.ByteOrderDefault)
+                imageRef = CGImageCreate(width,
+                                         height,
+                                         bitsPerComponent,
+                                         bitsPerPixel,
+                                         bytesPerRow,
+                                         colorSpaceRef,
+                                         bitmapInfo,
+                                         providerRef,
+                                         nil,
+                                         false,
+                                         CGColorRenderingIntent.RenderingIntentDefault)
+            }
+
+            return imageRef
+        }
+    }
+    private func pixelDataColorSet(numberOfColors count: Int) -> [PixelData]
+    {
+        var colorSet = [PixelData](count: count, repeatedValue: PixelData())
+        for index in 0 ..< count {
+            let hue = abs(sin(Double(index) / 30.0))
+            let saturation = 1.0
+            let brightness = Double(index) / 100.0 + 0.8
+
+            colorSet[index] = PixelData.pixelDataFromHSB(hue: hue, saturation: saturation, brightness: brightness)
+        }
+
+        return colorSet
     }
 }
