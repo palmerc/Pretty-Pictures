@@ -24,7 +24,7 @@ class JuliaViewController: UIViewController
         let jc = JuliaCalculator()
         jc.fractalStatesForComplexGrid(complexGrid, coordinate: self.defaultCoordinate, maximumIterations: self.maximumIterations, withCompletionHandler: {
             (fractalStates: [[FractalState]]) in
-            let intensityTile = IntensityTile(states: fractalStates)
+            let intensityTile = ContinuousColorTile(states: fractalStates)
             let CGImage = intensityTile.CGImage
             if let imageRef = CGImage {
                 let im = UIImage(CGImage: imageRef, scale: scaleFactor, orientation: .Up)

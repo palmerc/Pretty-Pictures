@@ -24,8 +24,8 @@ class MandelbrotViewController: UIViewController
         let mc = MandelbrotCalculator()
         mc.fractalStatesForComplexGrid(complexGrid, maximumIterations: self.maximumIterations, degree: self.degree, withCompletionHandler: {
             (fractalStates: [[FractalState]]) in
-            let intensityTile = IntensityTile(states: fractalStates)
-            let CGImage = intensityTile.CGImage
+            let continuousColorTile = ContinuousColorTile(states: fractalStates)
+            let CGImage = continuousColorTile.CGImage
             if let imageRef = CGImage {
                 let im = UIImage(CGImage: imageRef, scale: scaleFactor, orientation: .Up)
                 self.imageView.image = im
