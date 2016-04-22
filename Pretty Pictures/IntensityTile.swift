@@ -93,5 +93,4 @@ extension IntensityTile {
             return imageRef
         }
     }
-
 }
