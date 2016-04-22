@@ -25,7 +25,7 @@ public class ShipCalculator: Calculator
             (complexVector: [Complex<Double>]) -> [FractalState] in
             complexVector.map({
                 (complexPoint: Complex<Double>) -> FractalState in
-                var fractalState = FractalState(iterations: 0, maximumIterations: maximumIterations, z: Complex(0, 0), c: complexPoint, degree: degree)
+                var fractalState = FractalState(type: .BurningShip, iterations: 0, maximumIterations: maximumIterations, z: Complex(0, 0), c: complexPoint, degree: degree)
                 computeFractalStateForPoint(&fractalState, maximumIterations: maximumIterations, degree: degree)
                 return fractalState
             })

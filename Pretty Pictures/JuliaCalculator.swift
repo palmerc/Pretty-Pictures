@@ -27,7 +27,7 @@ public class JuliaCalculator: Calculator
             (complexVector: [Complex<Double>]) -> [FractalState] in
             complexVector.map({
                 (complexPoint: Complex<Double>) -> FractalState in
-                var fractalState = FractalState(iterations: 0, maximumIterations: maximumIterations, z: complexPoint, c: coordinate, degree: degree)
+                var fractalState = FractalState(type: .Julia, iterations: 0, maximumIterations: maximumIterations, z: complexPoint, c: coordinate, degree: degree)
                 computeFractalStateForPoint(&fractalState, maximumIterations: maximumIterations, degree: degree)
                 return fractalState
             })
