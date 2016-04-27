@@ -16,4 +16,5 @@ public struct FractalState
     var z: Complex<Double>
     var c: Complex<Double>
     var degree: Int
+    var threshold: Double
 }
