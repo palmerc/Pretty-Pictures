@@ -72,7 +72,9 @@ extension IntensityTile {
                 let bitsPerPixel = bytesPerPixel * bitsPerComponent
                 let bytesPerRow = bytesPerPixel * width
                 let totalBytes = height * bytesPerRow
-                let providerRef = CGDataProviderCreateWithData(nil, pixelValues, totalBytes, nil)
+                
+                let pixelData = NSData(bytes: pixelValues, length: totalBytes)
+                let providerRef = CGDataProviderCreateWithCFData(pixelData)
 
                 let colorSpaceRef = CGColorSpaceCreateDeviceGray()
                 let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.None.rawValue)

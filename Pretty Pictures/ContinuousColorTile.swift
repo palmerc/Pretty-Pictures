@@ -5,6 +5,8 @@ import CoreGraphics
 
 public class ContinuousColorTile : Tile
 {
+    private var _concurrentQueue = dispatch_queue_create("ContinuousColorTile", DISPATCH_QUEUE_CONCURRENT)
+
     private var _states: [[FractalState]]
     private var _colors: [[PixelData]]?
     public var colors: [[PixelData]]? {
@@ -23,10 +25,12 @@ public class ContinuousColorTile : Tile
 
     private func computeColors()
     {
-        self._colors = _states.map({
-            (stateVector: [FractalState]) -> [PixelData] in
-
-            return stateVector.map({ (state: FractalState) -> PixelData in
+        var colors = [[PixelData]](count: _states.count, repeatedValue: [PixelData]())
+        dispatch_apply(_states.count, _concurrentQueue) {
+            (row: Int) in
+            let stateVector = self._states[row]
+            let pixelVector = stateVector.map({
+                (state: FractalState) -> PixelData in
                 var color: PixelData
 
                 switch (state.type) {
@@ -43,7 +47,11 @@ public class ContinuousColorTile : Tile
 
                 return color
             })
-        })
+
+            colors[row] = pixelVector
+        }
+
+        _colors = colors
     }
 
     private func colorForMandelbrotFractalState(state: FractalState) -> PixelData
@@ -107,7 +115,9 @@ extension ContinuousColorTile {
                 let bitsPerPixel = bytesPerPixel * bitsPerComponent
                 let bytesPerRow = bytesPerPixel * width
                 let totalBytes = height * bytesPerRow
-                let providerRef = CGDataProviderCreateWithData(nil, pixelValues, totalBytes, nil)
+
+                let pixelData = NSData(bytes: pixelValues, length: totalBytes)
+                let providerRef = CGDataProviderCreateWithCFData(pixelData)
 
                 let colorSpaceRef = CGColorSpaceCreateDeviceRGB()
                 let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.NoneSkipLast.rawValue)
