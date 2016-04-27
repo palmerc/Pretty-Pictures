@@ -31,7 +31,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Mandelbrot" id="02T-cQ-hBp"/>
                     <connections>
-                        <outlet property="imageView" destination="mSx-DO-sFD" id="sYV-YQ-dE3"/>
+                        <outlet property="imageView" destination="mSx-DO-sFD" id="E7z-wf-5yp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
