@@ -1,28 +1,11 @@
 import UIKit
 import Metal
 
-
-
 private let kInflightCommandBuffers = 1
 
-struct ComplexMetal
-{
-    var real: Float
-    var imaginary: Float
-}
-
-struct FractalStateMetal {
-    var iterations: Int32
-    var maximumIterations: Int32
-    var z: ComplexMetal
-    var c: ComplexMetal
-    var degree: Int32
-    var threshold: Float
-}
 
 
-
-public class MandelbrotCalculatorMetal
+public class JuliaCalculatorMetal
 {
     private static let _defaultDegree: Int = 2
     private static let _defaultThreshold: Double = 2.0
@@ -41,7 +24,7 @@ public class MandelbrotCalculatorMetal
     private var inputFractalStateMetalBuffer: MTLBuffer?
     private var inputComplexGridMetalBuffer: MTLBuffer?
     private var outputFractalStateMetalBuffer: MTLBuffer?
-//    private var inflightMetalBuffers: [MTLBuffer]?
+    //    private var inflightMetalBuffers: [MTLBuffer]?
 
     init()
     {
@@ -50,7 +33,7 @@ public class MandelbrotCalculatorMetal
 
         let (metalDevice, metalLibrary, metalCommandQueue) = self.setupMetalDevice()
         if let metalDevice = metalDevice, metalLibrary = metalLibrary, metalCommandQueue = metalCommandQueue {
-            let (metalChannelDataKernelFunction, metalChannelDataPipelineState) = self.setupShaderInMetalPipelineWithName("mandelbrotFractalStatesForComplexGrid", withDevice: metalDevice, inLibrary: metalLibrary)
+            let (metalChannelDataKernelFunction, metalChannelDataPipelineState) = self.setupShaderInMetalPipelineWithName("juliaFractalStatesForComplexGrid", withDevice: metalDevice, inLibrary: metalLibrary)
             self.metalKernelFunction = metalChannelDataKernelFunction
             self.metalPipelineState = metalChannelDataPipelineState
 
@@ -90,11 +73,12 @@ public class MandelbrotCalculatorMetal
         } catch let error as NSError {
             print("Compute pipeline state acquisition failed. \(error.localizedDescription)")
         }
-        
+
         return (metalKernelFunction, metalPipelineState)
     }
 
     public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]],
+                                            coordinate: Complex<Double>,
                                             maximumIterations: Int,
                                             degree: Int = _defaultDegree,
                                             threshold: Double = _defaultThreshold,
@@ -112,6 +96,7 @@ public class MandelbrotCalculatorMetal
         let metalCommandBuffer = self.metalCommandQueue.commandBuffer()
         dispatch_semaphore_wait(self.inflightSemaphore, DISPATCH_TIME_FOREVER)
         self.fractalStatesForComplexGrid(complexGrid,
+                                         coordinate: coordinate,
                                          maximumIterations: maximumIterations,
                                          degree: degree,
                                          threshold: threshold,
@@ -153,7 +138,7 @@ public class MandelbrotCalculatorMetal
 
                 dispatch_semaphore_signal(self.inflightSemaphore)
                 if let handler = handler {
-                    dispatch_async(dispatch_get_main_queue(), { 
+                    dispatch_async(dispatch_get_main_queue(), {
                         handler(fractalStates);
                     })
                 }
@@ -163,6 +148,7 @@ public class MandelbrotCalculatorMetal
     }
 
     public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]],
+                                            coordinate: Complex<Double>,
                                             maximumIterations: Int,
                                             degree: Int = _defaultDegree,
                                             threshold: Double = _defaultThreshold,
@@ -170,7 +156,7 @@ public class MandelbrotCalculatorMetal
     {
         if let inputFractalStateMetalBuffer = self.inputFractalStateMetalBuffer,
             inputComplexGridMetalBuffer = self.inputComplexGridMetalBuffer {
-            let parameters = FractalStateMetal(iterations: Int32(0), maximumIterations: Int32(maximumIterations), z: ComplexMetal(real: 0, imaginary: 0), c: ComplexMetal(real: 0, imaginary: 0), degree: Int32(degree), threshold: Float(threshold))
+            let parameters = FractalStateMetal(iterations: Int32(0), maximumIterations: Int32(maximumIterations), z: ComplexMetal(real: 0, imaginary: 0), c: ComplexMetal(real: Float(coordinate.re), imaginary: Float(coordinate.im)), degree: Int32(degree), threshold: Float(threshold))
             UnsafeMutablePointer<FractalStateMetal>(inputFractalStateMetalBuffer.contents()).memory = parameters
 
             var width = 0
@@ -196,7 +182,7 @@ public class MandelbrotCalculatorMetal
             let commandEncoder = metalCommandBuffer.computeCommandEncoder()
 
             if let pipelineState = self.metalPipelineState {
-                commandEncoder.pushDebugGroup("Mandelbrot Metal Processing")
+                commandEncoder.pushDebugGroup("Julia Metal Processing")
                 commandEncoder.setComputePipelineState(pipelineState)
 
                 commandEncoder.setBuffer(self.inputFractalStateMetalBuffer, offset: 0, atIndex: 0) // FractalState
@@ -206,7 +192,7 @@ public class MandelbrotCalculatorMetal
                 let maxPixelCount = width * height
                 let roundedUp = Int(pow(2.0, ceil(log2(Float(maxPixelCount))))) // nearest power of 2
                 let threadExecutionWidth = pipelineState.threadExecutionWidth
-//                let dimensionalExecutionWidth = Int(log2(Double(threadExecutionWidth)))
+                //                let dimensionalExecutionWidth = Int(log2(Double(threadExecutionWidth)))
                 let threadsPerThreadgroup = MTLSize(width: threadExecutionWidth, height: 1, depth: 1)
                 let threadGroupWidth = roundedUp / threadsPerThreadgroup.width
                 let threadGroups = MTLSize(width: threadGroupWidth, height: 1, depth:1)

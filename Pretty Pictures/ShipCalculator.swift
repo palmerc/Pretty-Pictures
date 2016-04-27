@@ -5,8 +5,8 @@ import Darwin
 
 public class ShipCalculator: Calculator
 {
-    static let _defaultDegree: Int = 2
-    static let _defaultThreshold: Double = 10.0
+    private static let _defaultDegree: Int = 2
+    private static let _defaultThreshold: Double = 10.0
 
     var queue = dispatch_queue_create("ShipCalculator", nil)
 

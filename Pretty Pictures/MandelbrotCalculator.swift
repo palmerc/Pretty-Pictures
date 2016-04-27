@@ -4,8 +4,8 @@ import UIKit
 
 public class MandelbrotCalculator: Calculator
 {
-    static let _defaultDegree: Int = 2
-    static let _defaultThreshold: Double = 2.0
+    private static let _defaultDegree: Int = 2
+    private static let _defaultThreshold: Double = 2.0
 
     var _dispatchQueue = dispatch_queue_create("MandelbrotCalculator", nil)
     var _concurrentQueue = dispatch_queue_create("ConcurrentVector", DISPATCH_QUEUE_CONCURRENT)
@@ -22,7 +22,7 @@ public class MandelbrotCalculator: Calculator
         }
     }
 
-    public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]], maximumIterations: Int, degree: Int = 2, threshold: Double = 2.0) -> [[FractalState]]
+    public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]], maximumIterations: Int, degree: Int = _defaultDegree, threshold: Double = _defaultThreshold) -> [[FractalState]]
     {
         var fractalStates = [[FractalState]](count: complexGrid.count, repeatedValue: [FractalState]())
         dispatch_apply(complexGrid.count, _concurrentQueue, {

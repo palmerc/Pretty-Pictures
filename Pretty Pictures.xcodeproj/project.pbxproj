@@ -32,6 +32,7 @@
 		C7AC09F21CC7F166000202E2 /* PixelDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AC09F11CC7F166000202E2 /* PixelDataTests.swift */; };
 		C7AC09F51CC7F21E000202E2 /* PixelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AC09F41CC7F21E000202E2 /* PixelData.swift */; };
 		C7AC09F81CC7F768000202E2 /* NumericExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AC09F71CC7F768000202E2 /* NumericExtensions.swift */; };
+		C7D6244E1CD162D400D3FC2F /* JuliaCalculatorMetal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6244D1CD162D400D3FC2F /* JuliaCalculatorMetal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		C79CC9FE1CCC8CB400260E89 /* OneTwoDimensionalArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneTwoDimensionalArray.swift; sourceTree = "<group>"; };
 		C79CCA001CCE091B00260E89 /* TwoDimensionalArrayTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoDimensionalArrayTest.swift; sourceTree = "<group>"; };
 		C79CCA081CCF612200260E89 /* zebra_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zebra_5.png; sourceTree = "<group>"; };
+		C79CCA0C1CD0C2ED00260E89 /* Pretty Pictures-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pretty Pictures-Bridging-Header.h"; sourceTree = "<group>"; };
 		C7AC09E31CC39E54000202E2 /* complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = complex.swift; sourceTree = "<group>"; };
 		C7AC09E51CC3A25E000202E2 /* JuliaCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JuliaCalculator.swift; sourceTree = "<group>"; };
 		C7AC09E71CC4C10A000202E2 /* ShipCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipCalculator.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 		C7AC09F11CC7F166000202E2 /* PixelDataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PixelDataTests.swift; sourceTree = "<group>"; };
 		C7AC09F41CC7F21E000202E2 /* PixelData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PixelData.swift; sourceTree = "<group>"; };
 		C7AC09F71CC7F768000202E2 /* NumericExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumericExtensions.swift; sourceTree = "<group>"; };
+		C7D6244D1CD162D400D3FC2F /* JuliaCalculatorMetal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JuliaCalculatorMetal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +149,7 @@
 				C7AC09ED1CC580FF000202E2 /* Calculator.swift */,
 				C770976E1CC247AD002326D9 /* MandelbrotCalculator.swift */,
 				C79CC9FC1CCA2D3200260E89 /* MandelbrotCalculatorMetal.swift */,
+				C7D6244D1CD162D400D3FC2F /* JuliaCalculatorMetal.swift */,
 				C7AC09E51CC3A25E000202E2 /* JuliaCalculator.swift */,
 				C770976A1CC241D5002326D9 /* JuliaViewController.swift */,
 				C770976C1CC241E3002326D9 /* ShipViewController.swift */,
@@ -158,6 +162,7 @@
 				C7AC09EF1CC6140E000202E2 /* Fractals.metal */,
 				C7AC09F41CC7F21E000202E2 /* PixelData.swift */,
 				C7AC09F71CC7F768000202E2 /* NumericExtensions.swift */,
+				C79CCA0C1CD0C2ED00260E89 /* Pretty Pictures-Bridging-Header.h */,
 			);
 			path = "Pretty Pictures";
 			sourceTree = "<group>";
@@ -330,6 +335,7 @@
 				C770976D1CC241E3002326D9 /* ShipViewController.swift in Sources */,
 				C7AC09F81CC7F768000202E2 /* NumericExtensions.swift in Sources */,
 				C77097731CC2833D002326D9 /* ContinuousColorTile.swift in Sources */,
+				C7D6244E1CD162D400D3FC2F /* JuliaCalculatorMetal.swift in Sources */,
 				C7AC09E81CC4C10A000202E2 /* ShipCalculator.swift in Sources */,
 				C7AC09F51CC7F21E000202E2 /* PixelData.swift in Sources */,
 				C7AC09E61CC3A25E000202E2 /* JuliaCalculator.swift in Sources */,
@@ -485,10 +491,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Pretty Pictures/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cameronpalmer.Pretty-Pictures";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pretty Pictures/Pretty Pictures-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALID_ARCHS = arm64;
 			};
 			name = Debug;
@@ -497,10 +506,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Pretty Pictures/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cameronpalmer.Pretty-Pictures";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pretty Pictures/Pretty Pictures-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALID_ARCHS = arm64;
 			};

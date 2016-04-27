@@ -23,20 +23,33 @@ class JuliaViewController: UIViewController
         let stepSize = visibleComplexRect.width / Double(screenWidth)
         let complexGrid = visibleComplexRect.complexGridWithStepSize(stepSize)
 
-        let jc = JuliaCalculator()
-        jc.fractalStatesForComplexGrid(complexGrid, coordinate: self.defaultCoordinate, maximumIterations: self.maximumIterations, degree: self.degree, threshold: threshold, withCompletionHandler: {
-            (fractalStates: [[FractalState]]) in
-            let intensityTile = ContinuousColorTile(states: fractalStates)
-            let CGImage = intensityTile.CGImage
-            if let imageRef = CGImage {
-                let im = UIImage(CGImage: imageRef, scale: scaleFactor, orientation: .Up)
-                self.imageView.image = im
-            }
-        })
+        let time = self.measureBlock {
+            let jc = JuliaCalculatorMetal()
+            jc.fractalStatesForComplexGrid(complexGrid, coordinate: self.defaultCoordinate, maximumIterations: self.maximumIterations, degree: self.degree, threshold: self.threshold, withCompletionHandler: {
+                (fractalStates: [[FractalState]]) in
+                let intensityTile = ContinuousColorTile(states: fractalStates)
+                let CGImage = intensityTile.CGImage
+                if let imageRef = CGImage {
+                    let im = UIImage(CGImage: imageRef, scale: scaleFactor, orientation: .Up)
+                    self.imageView.image = im
+                }
+            })
+        }
+
+        print("Julia set calculated in \(time) seconds")
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    private func measureBlock(block: ()->()) -> CFTimeInterval
+    {
+        let start = CACurrentMediaTime()
+        block()
+        let end = CACurrentMediaTime()
+
+        return end - start
     }
 }
