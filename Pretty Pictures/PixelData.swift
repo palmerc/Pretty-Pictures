@@ -2,12 +2,24 @@ import Foundation
 
 
 
-public struct PixelData
+public struct PixelData: CustomStringConvertible, CustomDebugStringConvertible
 {
     var red: UInt8
     var green: UInt8
     var blue: UInt8
     var alpha: UInt8
+    public var description: String
+    {
+        get {
+            return String(format: "%s(r: %d, g: %d, b: %d, a: %d)", String(self), red, green, blue, alpha)
+        }
+    }
+    public var debugDescription: String
+    {
+        get {
+            return String(format: "%s(r: %d, g: %d, b: %d, a: %d)", String(self), red, green, blue, alpha)
+        }
+    }
 
     init(red: Double, green: Double, blue: Double, alpha: Double? = 1.0) {
         let clampRange = 0...1
@@ -77,14 +89,6 @@ public struct PixelData
         let saturationClamped = saturation.clamp(percentageClamp)
         let brightnessClamped = brightness.clamp(percentageClamp)
 
-
-        let rgbaClamp = 0...255
-        var scaledAlpha = 1.0
-        if let alpha = alpha {
-            scaledAlpha = alpha.clamp(percentageClamp)
-        }
-        scaledAlpha = round(scaledAlpha * 255.0).clamp(rgbaClamp)
-
         let C = brightnessClamped * saturationClamped
         let huePrime = hueClamped / sizeOfHSVSector
         let X = C * (1 - abs(huePrime % 2 - 1))
@@ -130,15 +134,19 @@ public struct PixelData
             break;
         }
 
+        var alphaClamped = 1.0
+        if let alpha = alpha {
+            alphaClamped = alpha.clamp(percentageClamp)
+        }
+
         let m = brightnessClamped - C
-        red = ceil((red + m) * 255.0).clamp(rgbaClamp)
-        green = ceil((green + m) * 255.0).clamp(rgbaClamp)
-        blue = ceil((blue + m) * 255.0).clamp(rgbaClamp)
 
-        return PixelData(red: UInt8(red),
-                         green: UInt8(green),
-                         blue: UInt8(blue),
-                         alpha: UInt8(scaledAlpha))
+        let rgbaClamp = 0...255
+        let r = UInt8(ceil((red + m) * 255.0).clamp(rgbaClamp))
+        let g = UInt8(ceil((green + m) * 255.0).clamp(rgbaClamp))
+        let b = UInt8(ceil((blue + m) * 255.0).clamp(rgbaClamp))
+        let a = UInt8(ceil(alphaClamped * 255.0).clamp(rgbaClamp))
+
+        return PixelData(red: r, green: g, blue: b, alpha: a)
     }
-
 }
