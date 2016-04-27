@@ -7,13 +7,13 @@ extension Double
     func clamp(range: Range<Int>) -> Double
     {
         var result = self
-        if let minimum = range.minElement() {
-            if self < Double(minimum) {
+        if let minimum = range.first {
+            if result < Double(minimum) {
                 result = Double(minimum)
             }
         }
-        if let maximum = range.maxElement() {
-            if self > Double(maximum) {
+        if let maximum = range.last {
+            if result > Double(maximum) {
                 result = Double(maximum)
             }
         }
@@ -28,12 +28,12 @@ extension Float
     {
         var result = self
         if let minimum = range.minElement() {
-            if self < Float(minimum) {
+            if result < Float(minimum) {
                 result = Float(minimum)
             }
         }
         if let maximum = range.maxElement() {
-            if self > Float(maximum) {
+            if result > Float(maximum) {
                 result = Float(maximum)
             }
         }
@@ -48,12 +48,12 @@ extension Int
     {
         var result = self
         if let minimum = range.minElement() {
-            if self < minimum {
+            if result < minimum {
                 result = minimum
             }
         }
         if let maximum = range.maxElement() {
-            if self > maximum {
+            if result > maximum {
                 result = maximum
             }
         }
