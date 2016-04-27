@@ -4,13 +4,16 @@ import Foundation
 
 public class JuliaCalculator: Calculator
 {
+    static let _defaultDegree: Int = 2
+    static let _defaultThreshold: Double = 2.0
+
     var queue = dispatch_queue_create("JuliaCalculator", nil)
 
-    public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]], coordinate: Complex<Double>, maximumIterations: Int, degree: Int = 2, withCompletionHandler handler: (([[FractalState]])->())?)
+    public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]], coordinate: Complex<Double>, maximumIterations: Int, degree: Int = _defaultDegree, threshold: Double = _defaultThreshold, withCompletionHandler handler: (([[FractalState]])->())?)
     {
         if let handler = handler {
             dispatch_async(self.queue) {
-                let fractalStates = self.fractalStatesForComplexGrid(complexGrid, coordinate: coordinate, maximumIterations: maximumIterations, degree: degree)
+                let fractalStates = self.fractalStatesForComplexGrid(complexGrid, coordinate: coordinate, maximumIterations: maximumIterations, degree: degree, threshold: threshold)
                 dispatch_async(dispatch_get_main_queue(), {
                     handler(fractalStates);
                 })
@@ -21,14 +24,15 @@ public class JuliaCalculator: Calculator
     public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]],
                                             coordinate: Complex<Double>,
                                             maximumIterations: Int,
-                                            degree: Int = 2) -> [[FractalState]]
+                                            degree: Int = _defaultDegree,
+                                            threshold: Double = _defaultThreshold) -> [[FractalState]]
     {
         let fractalStates = complexGrid.map {
             (complexVector: [Complex<Double>]) -> [FractalState] in
             complexVector.map({
                 (complexPoint: Complex<Double>) -> FractalState in
-                var fractalState = FractalState(type: .Julia, iterations: 0, maximumIterations: maximumIterations, z: complexPoint, c: coordinate, degree: degree)
-                computeFractalStateForPoint(&fractalState, maximumIterations: maximumIterations, degree: degree)
+                var fractalState = FractalState(type: .Julia, iterations: 0, maximumIterations: maximumIterations, z: complexPoint, c: coordinate, degree: degree, threshold: threshold)
+                computeFractalStateForPoint(&fractalState, maximumIterations: maximumIterations, degree: degree, threshold: threshold)
                 return fractalState
             })
         }
@@ -36,7 +40,7 @@ public class JuliaCalculator: Calculator
         return fractalStates
     }
 
-    private func computeFractalStateForPoint(inout fractalState: FractalState, maximumIterations: Int, degree: Int = 2)
+    private func computeFractalStateForPoint(inout fractalState: FractalState, maximumIterations: Int, degree: Int, threshold: Double)
     {
         // Calculate whether the point is inside or outside the Mandelbrot set
         // Zn+1 = (Zn)^2 + c -- start with Z0 = 0
@@ -46,7 +50,7 @@ public class JuliaCalculator: Calculator
 
         for iteration in 1...maximumIterations {
             z = pow(z, degree) + c
-            if abs(z) > 2 {
+            if abs(z) > threshold {
                 iterations = iteration
                 break;
             }

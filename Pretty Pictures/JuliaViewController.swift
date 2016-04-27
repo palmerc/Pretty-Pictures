@@ -9,6 +9,8 @@ class JuliaViewController: UIViewController
     var startRect = ComplexRect<Double>(Complex<Double>(-2.1, 1.5), Complex<Double>(2.0, -1.5))
     var defaultCoordinate = Complex<Double>(-0.7269, 0.1889)
     var maximumIterations = 1024
+    var degree = 2
+    var threshold = 2.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +24,7 @@ class JuliaViewController: UIViewController
         let complexGrid = visibleComplexRect.complexGridWithStepSize(stepSize)
 
         let jc = JuliaCalculator()
-        jc.fractalStatesForComplexGrid(complexGrid, coordinate: self.defaultCoordinate, maximumIterations: self.maximumIterations, withCompletionHandler: {
+        jc.fractalStatesForComplexGrid(complexGrid, coordinate: self.defaultCoordinate, maximumIterations: self.maximumIterations, degree: self.degree, threshold: threshold, withCompletionHandler: {
             (fractalStates: [[FractalState]]) in
             let intensityTile = ContinuousColorTile(states: fractalStates)
             let CGImage = intensityTile.CGImage

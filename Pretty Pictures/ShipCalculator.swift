@@ -5,13 +5,16 @@ import Darwin
 
 public class ShipCalculator: Calculator
 {
+    static let _defaultDegree: Int = 2
+    static let _defaultThreshold: Double = 10.0
+
     var queue = dispatch_queue_create("ShipCalculator", nil)
 
-    public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]], maximumIterations: Int, degree: Int = 2, withCompletionHandler handler: (([[FractalState]])->())?)
+    public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]], maximumIterations: Int, degree: Int = _defaultDegree, threshold: Double = _defaultThreshold, withCompletionHandler handler: (([[FractalState]])->())?)
     {
         if let handler = handler {
             dispatch_async(self.queue) {
-                let fractalStates = self.fractalStatesForComplexGrid(complexGrid, maximumIterations: maximumIterations, degree: degree)
+                let fractalStates = self.fractalStatesForComplexGrid(complexGrid, maximumIterations: maximumIterations, degree: degree, threshold: threshold)
                 dispatch_async(dispatch_get_main_queue(), {
                     handler(fractalStates);
                 })
@@ -19,14 +22,14 @@ public class ShipCalculator: Calculator
         }
     }
 
-    public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]], maximumIterations: Int, degree: Int = 2) -> [[FractalState]]
+    public func fractalStatesForComplexGrid(complexGrid: [[Complex<Double>]], maximumIterations: Int, degree: Int = _defaultDegree, threshold: Double = _defaultThreshold) -> [[FractalState]]
     {
         let fractalStates = complexGrid.map {
             (complexVector: [Complex<Double>]) -> [FractalState] in
             complexVector.map({
                 (complexPoint: Complex<Double>) -> FractalState in
-                var fractalState = FractalState(type: .BurningShip, iterations: 0, maximumIterations: maximumIterations, z: Complex(0, 0), c: complexPoint, degree: degree)
-                computeFractalStateForPoint(&fractalState, maximumIterations: maximumIterations, degree: degree)
+                var fractalState = FractalState(type: .BurningShip, iterations: 0, maximumIterations: maximumIterations, z: Complex(0, 0), c: complexPoint, degree: degree, threshold: threshold)
+                computeFractalStateForPoint(&fractalState, maximumIterations: maximumIterations, degree: degree, threshold: threshold)
                 return fractalState
             })
         }
@@ -34,7 +37,7 @@ public class ShipCalculator: Calculator
         return fractalStates
     }
 
-    private func computeFractalStateForPoint(inout fractalState: FractalState, maximumIterations: Int, degree: Int = 2)
+    private func computeFractalStateForPoint(inout fractalState: FractalState, maximumIterations: Int, degree: Int, threshold: Double)
     {
         var iterations = fractalState.iterations
         var z = fractalState.z

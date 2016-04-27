@@ -9,6 +9,7 @@ class MandelbrotViewController: UIViewController
     var startRect = ComplexRect<Double>(Complex<Double>(-2.1, 1.5), Complex<Double>(1.0, -1.5))
     var maximumIterations = 1024
     var degree = 2
+    var threshold = 2.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +23,7 @@ class MandelbrotViewController: UIViewController
         let complexGrid = visibleComplexRect.complexGridWithStepSize(stepSize)
 
         let mc = MandelbrotCalculator()
-        mc.fractalStatesForComplexGrid(complexGrid, maximumIterations: self.maximumIterations, degree: self.degree, withCompletionHandler: {
+        mc.fractalStatesForComplexGrid(complexGrid, maximumIterations: self.maximumIterations, degree: self.degree, threshold: threshold, withCompletionHandler: {
             (fractalStates: [[FractalState]]) in
             let continuousColorTile = ContinuousColorTile(states: fractalStates)
             let CGImage = continuousColorTile.CGImage
